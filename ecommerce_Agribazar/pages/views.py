@@ -13,3 +13,7 @@ class Login(View):
 class Signup(View):
     def get(self, request):
         return render(request, 'pages/signup.html')
+
+class About(View):
+    def get(self, request):
+        return render(request, 'pages/about.html')
