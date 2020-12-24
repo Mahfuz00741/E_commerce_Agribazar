@@ -33,6 +33,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'pages.apps.PagesConfig',
+    'categories.apps.CategoriesConfig',
+    'stores.apps.StoresConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -124,3 +126,6 @@ STATICFILES_DIRS = [
 os.path.join(BASE_DIR, 'ecommerce_Agribazar/static')
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
