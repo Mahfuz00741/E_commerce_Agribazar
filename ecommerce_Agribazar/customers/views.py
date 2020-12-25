@@ -102,3 +102,7 @@ class logout(View):
 
     def post(self, request):
         return render(request, 'pages/index.html')
+
+class contact(View):
+    def get(self, request):
+        return render(request, 'customers/contact.html')

@@ -11,6 +11,3 @@ class About(View):
     def get(self, request):
         return render(request, 'pages/about.html')
 
-class contact(View):
-    def get(self, request):
-        return render(request, 'pages/contact.html')
