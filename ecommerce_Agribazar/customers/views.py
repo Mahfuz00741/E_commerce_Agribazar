@@ -59,7 +59,15 @@ class Signup(View):
             return redirect('index')
 
         else:
+            value = {
+                'first_name': first_name,
+                'last_name': last_name,
+                'mobile_number': mobile_number,
+                'email': email,
+                'address': address,
+            }
             dict = {
+                'values': value,
                 'error': error_message
             }
             return render(request, 'customers/signup.html', dict)

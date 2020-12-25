@@ -32,11 +32,11 @@
                                         <center><h5> {{ error }} </h5></center>
                                     </div>
                                 {% endif %}
-                                <input type="text" name="first_name" placeholder="First Name">
-                                <input type="text" name="last_name" placeholder="Last Name">
-                                <input type="text" name="mobile_number" placeholder="Enter your phone number">
-                                <input type="email" name="email" placeholder="example@mail.com">
-                                <input type="text" name="address" placeholder="Enter your home address">
+                                <input type="text" name="first_name" value="{{ values.first_name }}" placeholder="First Name">
+                                <input type="text" name="last_name" value="{{ values.last_name }}" placeholder="Last Name">
+                                <input type="text" name="mobile_number" value="{{ values.mobile_number }}" placeholder="Enter your phone number">
+                                <input type="email" name="email" value="{{ values.email }}" placeholder="example@mail.com">
+                                <input type="text" name="address" value="{{ values.address }}" placeholder="Enter your home address">
                                 <input type="password" name="password" placeholder="Password">
                                 <input type="submit" value="Register">
                             </form>
