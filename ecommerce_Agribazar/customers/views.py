@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
-from .models import Customer
+from .models import Customer, Complain
 from django.contrib.auth.hashers import make_password, check_password
 
 # Create your views here.
@@ -106,3 +106,18 @@ class logout(View):
 class contact(View):
     def get(self, request):
         return render(request, 'customers/contact.html')
+
+    def post(self, request):
+        full_name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
+        message = request.POST.get('message')
+
+        complain = Complain(
+            full_name=full_name,
+            email=email,
+            phone_number=phone_number,
+            message=message
+        )
+        complain.save()
+        return redirect('contact')

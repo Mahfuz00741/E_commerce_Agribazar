@@ -4,7 +4,7 @@
 
 <!-- contact -->
 		<div class="mail">
-			<h3>Send your message</h3>
+			<h3>Send Your Message</h3>
 			<div class="agileinfo_mail_grids">
 				<div class="col-md-4 agileinfo_mail_grid_left">
 					<ul>
@@ -22,6 +22,7 @@
 				</div>
 				<div class="col-md-8 agileinfo_mail_grid_right">
 					<form action="#" method="post">
+                        {% csrf_token %}
 						<div class="col-md-6 wthree_contact_left_grid">
 							<input type="text" name="name" value="" placeholder="Full Name" required="">
 							<input type="email" name="email" value="" placeholder="Email" required="">
