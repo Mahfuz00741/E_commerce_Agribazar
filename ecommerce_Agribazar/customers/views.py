@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from .models import Customer
@@ -16,9 +17,9 @@ class Login(View):
 
         error_message = None
         if customer:
-            check_password(password, customer.password)
-            if check_password:
-                pass
+            password_check = check_password(password, customer.password)
+            if password_check:
+                request.session['customer_id'] = customer.id
                 return redirect('index')
             else:
                 error_message = 'Email or Password Incorrect.. !!'
