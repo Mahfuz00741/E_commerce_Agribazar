@@ -9,6 +9,27 @@ class Login(View):
     def get(self, request):
         return render(request, 'customers/login.html')
 
+    def post(self, request):
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        customer = Customer.login_email_exits(email)
+
+        error_message = None
+        if customer:
+            check_password(password, customer.password)
+            if check_password:
+                pass
+                return redirect('index')
+            else:
+                error_message = 'Email or Password Incorrect.. !!'
+                return render(request, 'customers/login.html')
+
+        else:
+            error_message = 'Email or Password Incorrect.. !!'
+            return render(request, 'customers/login.html', {'error': error_message})
+
+
+
 class Signup(View):
     def get(self, request):
         return render(request, 'customers/signup.html')
