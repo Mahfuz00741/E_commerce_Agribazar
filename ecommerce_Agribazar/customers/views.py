@@ -31,6 +31,7 @@ class Login(View):
 
 
 
+
 class Signup(View):
     def get(self, request):
         return render(request, 'customers/signup.html')
@@ -93,3 +94,11 @@ class Signup(View):
                 'error': error_message
             }
             return render(request, 'customers/signup.html', dict)
+
+class logout(View):
+    def get(self, request):
+        request.session.clear()
+        return redirect('login')
+
+    def post(self, request):
+        return render(request, 'pages/index.html')
