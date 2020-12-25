@@ -6,7 +6,8 @@
     <div class="products-breadcrumb">
         <div class="container">
             <ul>
-                <li><i class="fa fa-home" aria-hidden="true"></i><a href="../pages/index.html">Home</a><span>|</span></li>
+                <li><i class="fa fa-home" aria-hidden="true"></i><a href="../pages/index.html">Home</a><span>|</span>
+                </li>
                 <li>Sign Up</li>
             </ul>
         </div>
@@ -26,11 +27,16 @@
                             <h2>Create an account</h2>
                             <form action="#" method="post">
                                 {% csrf_token %}
+                                {% if error %}
+                                    <div class="alert alert-danger">
+                                        <center><h5> {{ error }} </h5></center>
+                                    </div>
+                                {% endif %}
                                 <input type="text" name="first_name" placeholder="First Name">
                                 <input type="text" name="last_name" placeholder="Last Name">
                                 <input type="text" name="mobile_number" placeholder="Enter your phone number">
                                 <input type="email" name="email" placeholder="example@mail.com">
-                                <input type="text" name="address" placeholder="Enter your home address" required=" ">
+                                <input type="text" name="address" placeholder="Enter your home address">
                                 <input type="password" name="password" placeholder="Password">
                                 <input type="submit" value="Register">
                             </form>

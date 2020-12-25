@@ -28,6 +28,36 @@ class Signup(View):
             address=address,
             password=password
         )
-        customer.save()
-        return redirect('index')
-        #error_message = None
+        error_message = None
+        if not first_name:
+            error_message = 'First Name Required.. !!'
+        elif len(first_name) < 4:
+            error_message = 'First Name must be four character..'
+        elif not last_name:
+            error_message = 'Last Name Required.. !!'
+        elif len(last_name) < 4:
+            error_message = 'Last Name must be four character..'
+        elif not mobile_number:
+            error_message = 'Phone Number Required.. !!'
+        elif len(mobile_number) < 11:
+            error_message = 'Phone Number at least eleven character..'
+        elif not email:
+            error_message = 'Email Address Required.. !!'
+        elif customer.signup_email_exits():
+            error_message = 'Email already registered..'
+        elif not address:
+            error_message = 'Address Required.. !!'
+        elif not password:
+            error_message = 'Password Required.. !!'
+        elif len(password) < 6:
+            error_message = 'Password at least six character long..'
+
+        if not error_message:
+            customer.save()
+            return redirect('index')
+
+        else:
+            dict = {
+                'error': error_message
+            }
+            return render(request, 'customers/signup.html', dict)
