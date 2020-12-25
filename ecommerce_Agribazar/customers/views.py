@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from .models import Customer
+from django.contrib.auth.hashers import make_password, check_password
 
 # Create your views here.
 
@@ -53,6 +54,7 @@ class Signup(View):
             error_message = 'Password at least six character long..'
 
         if not error_message:
+            customer.password = make_password(customer.password)
             customer.save()
             return redirect('index')
 
