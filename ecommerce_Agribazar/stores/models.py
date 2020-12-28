@@ -21,3 +21,11 @@ class Product(models.Model):
                 raise ValidationError("The image is %i pixel high. It's supposed to be 140px" % h)
 
 
+    @staticmethod
+    def all_product_by_categoryId(self, category_id):
+        if category_id:
+            return Product.objects.filter(category = category_id)
+        else:
+            return Product.objects.all()
+
+

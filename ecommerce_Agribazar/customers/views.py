@@ -101,7 +101,7 @@ class logout(View):
         return redirect('login')
 
     def post(self, request):
-        return render(request, 'pages/index.html')
+        return render(request, 'stores/index.html')
 
 class contact(View):
     def get(self, request):
@@ -121,3 +121,4 @@ class contact(View):
         )
         complain.save()
         return redirect('contact')
+
