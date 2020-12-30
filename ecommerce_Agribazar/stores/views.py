@@ -8,6 +8,10 @@ from customers.models import Subscribe_customer
 
 class Index(View):
     def get(self, request):
+        cart = request.session.get('cart')
+        if not cart:
+            request.session.cart = {}
+
         categories = Category.objects.all()
 
         product = None
@@ -24,11 +28,28 @@ class Index(View):
         return render(request, 'stores/index.html', dict)
 
     def post(self, request):
-        email = request.POST.get('Email')
-        subscribe = Subscribe_customer(
-            email=email
-        )
-        subscribe.save()
+        product = request.POST.get('product')
+        remove = request.POST.get('remove')
+        cart = request.session.get('cart')
+        if cart:
+            quantity = cart.get(product)
+            if quantity:
+                if remove:
+                    if quantity<=1:
+                        cart.pop(product)
+                    else:
+                        cart[product] = quantity - 1
+                else:
+                    cart[product] = quantity + 1
+            else:
+                cart[product] = 1
+        else:
+            cart = {}
+            cart[product] = 1
+
+        request.session['cart'] = cart
+        print(request.session['cart'])
+
         return redirect('index')
 
 

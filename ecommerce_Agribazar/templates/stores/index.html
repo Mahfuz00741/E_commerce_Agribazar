@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block content %}
+    {% load cart %}
 
     <!-- banner -->
     <div class="banner">
@@ -90,7 +90,7 @@
 
                     {% for product in product_list %}
 
-                        <div class="col-md-3 top_brand_left">
+                        <div class="col-md-3 mx-auto mb-3 top_brand_left">
                             <div class="hover14 column">
                                 <div class="agile_top_brand_left_grid">
 
@@ -98,34 +98,58 @@
                                         <figure>
                                             <div class="snipcart-item block">
                                                 <div class="snipcart-thumb">
-                                                    <a href="single.html"><img title=" " alt=" "
-                                                                               src="{{ product.image.url }}"/></a>
+                                                    <img title=" " alt=" " src="{{ product.image.url }}"/>
                                                     <p>{{ product.name }}
                                                         <span><small> ({{ product.weight }}) </small> </span></p>
                                                     <h4><small> <b>৳</b> </small> {{ product.price }} </h4>
                                                 </div>
                                                 <div class="snipcart-details top_brand_home_details">
-                                                    <form action="#" method="post">
-                                                        <fieldset>
-                                                            <input type="hidden" name="cmd" value="_cart"/>
-                                                            <input type="hidden" name="add" value="1"/>
-                                                            <input type="hidden" name="business" value=" "/>
-                                                            <input type="hidden" name="item_name"
-                                                                   value="{{ product.name }}"/>
-                                                            <input type="hidden" name="amount"
-                                                                   value="{{ product.price }}"/>
-                                                            <input type="hidden" name="currency_code" value="USD"/>
-                                                            <input type="hidden" name="return" value=" "/>
-                                                            <input type="hidden" name="cancel_return" value=" "/>
-                                                            <input type="submit" name="submit" value="Add to cart"
-                                                                   class="button"/>
-                                                        </fieldset>
-                                                    </form>
+
+
+                                                    {% if product|is_in_cart:request.session.cart %}
+                                                        <div class="row no-gutters" style="background-color: whitesmoke">
+                                                            <form action="/" class="col-2" method="post">
+                                                                {% csrf_token %}
+                                                                <input hidden type="text" name="product"
+                                                                       value="{{ product.id }}">
+                                                                <input hidden type="text" name="remove"
+                                                                       value="True">
+                                                                <input type="submit" value=" - "
+                                                                   class="btn btn-block btn-secondary">
+                                                            </form>
+                                                            <div class="text-center col">{{ product|cart_quantity:request.session.cart }} in cart</div>
+                                                            <form action="/" class="col-2" method="post">
+                                                                {% csrf_token %}
+                                                                <input hidden type="text" name="product"
+                                                                       value="{{ product.id }}">
+                                                                <input type="submit" value=" + "
+                                                                   class="btn btn-block btn-secondary">
+                                                            </form>
+                                                        </div>
+
+
+                                                    {% else %}
+                                                        <form action="/" method="post">
+                                                            {% csrf_token %}
+                                                            <fieldset>
+                                                                <input hidden type="text" name="product"
+                                                                       value="{{ product.id }}">
+                                                                <input type="submit" name="submit" value="Add to cart"
+                                                                       class="button"/>
+                                                            </fieldset>
+                                                        </form>
+
+
+                                                    {% endif %}
+
+
+
                                                 </div>
                                             </div>
                                         </figure>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 
@@ -138,24 +162,5 @@
         </div>
     </div>
     <!-- //Products -->
-
-    <!-- subscribe -->
-<div class="newsletter">
-    <div class="container">
-        <div class="w3agile_newsletter_left">
-            <h3>Subscribe & get 10% discount coupon</h3>
-        </div>
-        <div class="w3agile_newsletter_right">
-            <form action="#" method="post">
-                {% csrf_token %}
-                <input type="email" name="Email" value="Email" onfocus="this.value = '';"
-                       onblur="if (this.value == '') {this.value = 'Email';}" required="">
-                <input type="submit" value="subscribe now">
-            </form>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
-<!-- //subscribe -->
 
 {% endblock %}
