@@ -48,11 +48,24 @@ class Index(View):
             cart[product] = 1
 
         request.session['cart'] = cart
-        print(request.session['cart'])
-
         return redirect('index')
 
 
 class About(View):
     def get(self, request):
         return render(request, 'stores/about.html')
+
+
+def footer(request):
+    categories = Category.objects.all()
+    product = None
+    category_request = request.GET.get('category')
+    if category_request:
+        product = Product.all_product_by_categoryId(self, category_request)
+    else:
+        product = Product.objects.all()
+    dict = {
+        'product_list': product,
+        'category_list': categories
+    }
+    return render(request, 'partials/_footer.html', dict)
