@@ -69,3 +69,10 @@ def footer(request):
         'category_list': categories
     }
     return render(request, 'partials/_footer.html', dict)
+
+class Cart(View):
+    def get(self, request):
+        ids = list(request.session.get('cart').keys())
+        product = Product.get_all_product_byid(ids)
+        print(product)
+        return render(request, 'stores/cart.html', {'products': product})

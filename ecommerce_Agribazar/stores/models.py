@@ -28,4 +28,8 @@ class Product(models.Model):
         else:
             return Product.objects.all()
 
+    @staticmethod
+    def get_all_product_byid(ids):
+        return Product.objects.filter(id__in = ids)
+
 
